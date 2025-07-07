@@ -101,6 +101,8 @@ func main() {
 				case 429:
 					atomic.AddInt32(&status429Count, 1)
 					atomic.AddInt32(&errorCount, 1)
+				case 401,403:
+					// AuthZ & AuthN responses do not count as an error
 				default:
 					if resp.StatusCode >= 500 {
 						atomic.AddInt32(&status500Count, 1)
