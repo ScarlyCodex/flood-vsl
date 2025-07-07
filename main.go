@@ -93,21 +93,22 @@ func main() {
 
 			if err != nil {
 				atomic.AddInt32(&errorCount, 1)
-			} else {
-				defer resp.Body.Close()
-				switch resp.StatusCode {
-				case 200:
-					atomic.AddInt32(&status200Count, 1)
-				case 429:
-					atomic.AddInt32(&status429Count, 1)
+				return
+			}
+			defer resp.Body.Close()
+
+			switch resp.StatusCode {
+			case 200:
+				atomic.AddInt32(&status200Count, 1)
+			case 429:
+				atomic.AddInt32(&status429Count, 1)
+				atomic.AddInt32(&errorCount, 1)
+			case 401, 403:
+				// Not considered errors
+			default:
+				if resp.StatusCode >= 500 {
+					atomic.AddInt32(&status500Count, 1)
 					atomic.AddInt32(&errorCount, 1)
-				case 401,403:
-					// AuthZ & AuthN responses do not count as an error
-				default:
-					if resp.StatusCode >= 500 {
-						atomic.AddInt32(&status500Count, 1)
-						atomic.AddInt32(&errorCount, 1)
-					}
 				}
 			}
 

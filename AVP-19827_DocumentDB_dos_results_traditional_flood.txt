@@ -1,0 +1,13 @@
+[36mStarting flood test on: https://rds-int.amazon.com[0m
+Progress: 0/10000 (0.0%) - 200:0 429:0 5xx:0 err:0✓ Completed: 401 requests.
+
+[36m📋 Test Summary[0m
+--------------------------------
+[32mTotal sent:[0m      401
+[32m200 OK:[0m         0
+[33m429 Too Many:[0m   0
+[31m5xx Errors:[0m     0
+Total duration: 0.10s
+Avg lat_first: [36m10.614677ms[0m  Avg lat_last: [36m14.706626ms[0m
+[32m✅ No significant degradation[0m
+[33m⚠️  Flood aborted: high error rate[0m
